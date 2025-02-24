@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minio
-  namespace: minio
+  name: minio-ingress
+  namespace: minio  # نام Namespace که MinIO در آن قرار دارد
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
   rules:
-  - host: minio.local
+  - host: minio.local  # دامنه مورد نظر شما
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: minio-service
+            name: minio-service  # نام سرویس MinIO
             port:
               number: 9000
-
