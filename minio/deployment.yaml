@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  replicas: 3
   name: minio
   namespace: minio  # اضافه کردن namespace
 spec:
