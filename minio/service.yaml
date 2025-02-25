@@ -12,3 +12,18 @@ spec:
       targetPort: 9000
       nodePort: 31000
   type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service-web
+  namespace: minio  # اضافه کردن namespace
+spec:
+  selector:
+    app: minio
+  ports:
+    - protocol: TCP
+      port: 34749
+      targetPort: 34749
+      nodePort: 32000
+  type: NodePort
