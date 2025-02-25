@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minio
+  name: minio-web
   namespace: minio
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
@@ -18,9 +18,9 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: minio-service
+            name: minio-service-web
             port:
-              number: 34749
+              number: 32000
 
 
 
