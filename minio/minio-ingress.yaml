@@ -20,7 +20,7 @@ spec:
           service:
             name: minio-service-web
             port:
-              number: 32000
+              number: 34749
 
 
 
