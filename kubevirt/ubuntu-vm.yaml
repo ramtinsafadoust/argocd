@@ -13,8 +13,6 @@ spec:
       domain:
         cpu:
           cores: 2
-          socket: 1
-          threads: 1
         devices:
           disks:
             - name: disk0
@@ -25,13 +23,9 @@ spec:
                 bus: virtio
           interfaces:
             - name: default
-              masquerade: {}  # از masquerade برای NAT استفاده می‌کنیم
+              bridge: {}  # از bridge استفاده می‌کنیم تا کارت شبکه به درستی شبیه‌سازی شود.
         memory:
           guest: 4Gi
-        resources:
-          requests:
-            memory: 4Gi
-            cpu: "2"
       volumes:
         - name: disk0
           containerDisk:
