@@ -24,8 +24,8 @@ spec:
               disk:
                 bus: virtio
           interfaces:
-            - name: iface0
-              bridge: {}
+            - name: default
+              masquerade: {}  # از masquerade برای NAT استفاده می‌کنیم
         memory:
           guest: 4Gi
         resources:
