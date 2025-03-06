@@ -2,7 +2,7 @@ apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
   name: ubuntu-vm
-  namespace: kubevirt
+  namespace: vms
 spec:
   running: true
   template:
@@ -11,6 +11,11 @@ spec:
         kubevirt.io/vm: ubuntu-vm
     spec:
       domain:
+        devices:
+          disks:
+            - name: kubevirt-disk
+              disk:
+                bus: virtio
         resources:
           requests:
             memory: 2Gi
@@ -19,8 +24,4 @@ spec:
         - name: kubevirt-disk
           containerDisk:
             image: ubuntu:latest
-      devices:
-        disks:
-          - name: kubevirt-disk
-            disk:
-              bus: virtio
+
