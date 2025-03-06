@@ -1,39 +1,42 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: ubuntu-vm
-  namespace: vms
+  name: fedora-vmi
 spec:
-  running: true
+  running: false
   template:
     metadata:
       labels:
-        kubevirt.io/vm: ubuntu-vm
+        kubevirt.io/size: small
+        kubevirt.io/domain: fedora-vmi
     spec:
       domain:
-        cpu:
-          cores: 2
         devices:
           disks:
-            - name: disk0
+            - name: containerdisk
               disk:
                 bus: virtio
-            - name: disk1
+            - name: cloudinitdisk
               disk:
                 bus: virtio
           interfaces:
-            - name: default
-              bridge: {}  # از bridge استفاده می‌کنیم تا کارت شبکه به درستی شبیه‌سازی شود.
-        memory:
-          guest: 4Gi
+          - name: default
+            masquerade: {}
+        resources:
+          requests:
+            memory: 1Gi
+          limits:
+            memory: 2Gi
+      networks:
+      - name: default
+        pod: {}
       volumes:
-        - name: disk0
+        - name: containerdisk
           containerDisk:
-            image: ubuntu:20.04
-            imagePullPolicy: Always
-        - name: disk1
-          containerDisk:
-            image: ubuntu:20.04
-            imagePullPolicy: Always
-      nodeSelector:
-        kubevirt.io/schedulable: "true"
+            image: kubevirt/fedora-cloud-container-disk-demo:latest
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              password: fedora
+              chpasswd: { expire: False }
