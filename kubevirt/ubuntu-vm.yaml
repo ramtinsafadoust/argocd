@@ -19,7 +19,7 @@ spec:
               disk:
                 bus: virtio
           interfaces:
-            - name: default
+            - name: ens18
               bridge: {}
         memory:
           guest: 2Gi
