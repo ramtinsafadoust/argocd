@@ -1,84 +1,36 @@
-apiVersion: v1
+apiversion: v1
 items:
-- apiVersion: kubevirt.io/v1
-  kind: VirtualMachine
+- apiversion: kubevirt.io/v1
+  kind: virtualmachine
   metadata:
-    annotations:
-      vm.kubevirt.io/flavor: tiny
-      vm.kubevirt.io/os: rhel8
-      vm.kubevirt.io/validations: |
-        [
-          {
-            "name": "minimal-required-memory",
-            "path": "jsonpath::.spec.domain.resources.requests.memory",
-            "rule": "integer",
-            "message": "This VM requires more memory.",
-            "min": 1610612736
-          }
-        ]
-      vm.kubevirt.io/workload: server
     labels:
-      app: rheltinyvm
-      vm.kubevirt.io/template: rhel8-server-tiny
-      vm.kubevirt.io/template.revision: "45"
-      vm.kubevirt.io/template.version: 0.11.3
+      vm.kubevirt.io/template: rhel7-generic-tiny
     name: rheltinyvm
+    osinfoname: rhel7.0
+    defaults.template.kubevirt.io/disk: rhel-default-disk
+    defaults.template.kubevirt.io/nic: rhel-default-net
   spec:
-    dataVolumeTemplates:
-    - apiVersion: cdi.kubevirt.io/v1beta1
-      kind: DataVolume
-      metadata:
-        name: rheltinyvm
-      spec:
-        storage:
-          accessModes:
-          - ReadWriteMany
-        source:
-          pvc:
-            name: rhel
-            namespace: kubevirt
     runStrategy: Halted
     template:
-      metadata:
-        labels:
-          kubevirt.io/domain: rheltinyvm
-          kubevirt.io/size: tiny
       spec:
         domain:
           cpu:
-            cores: 1
             sockets: 1
+            cores: 1
             threads: 1
           devices:
-            disks:
-            - disk:
-                bus: virtio
-              name: rheltinyvm
-            - disk:
-                bus: virtio
-              name: cloudinitdisk
-            interfaces:
-            - masquerade: {}
-              name: default
-            networkInterfaceMultiqueue: true
             rng: {}
           resources:
             requests:
-              memory: 1.5Gi
-        networks:
-        - name: default
-          pod: {}
-        terminationGracePeriodSeconds: 180
+              memory: 1g
+        terminationgraceperiodseconds: 0
         volumes:
-        - dataVolume:
-            name: rheltinyvm
-          name: rheltinyvm
-        - cloudInitNoCloud:
-            userData: |-
-              #cloud-config
-              user: cloud-user
-              password: lymp-fda4-m1cv
-              chpasswd: { expire: False }
-          name: cloudinitdisk
-kind: List
+        - containerDisk:
+          image: registry:5000/kubevirt/cirros-container-disk-demo:devel
+          name: rhel-default-disk
+        networks:
+        - genie:
+          networkName: flannel
+          name: rhel-default-net
+kind: list
 metadata: {}
