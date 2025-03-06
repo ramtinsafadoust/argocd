@@ -1,0 +1,26 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: ubuntu-vm
+  namespace: default
+spec:
+  running: false
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: ubuntu-vm
+    spec:
+      domain:
+        resources:
+          requests:
+            memory: 2Gi
+            cpu: "2"
+      volumes:
+        - name: kubevirt-disk
+          containerDisk:
+            image: kubevirt/cirros-container-disk-demo:latest
+      devices:
+        disks:
+          - name: kubevirt-disk
+            disk:
+              bus: virtio
