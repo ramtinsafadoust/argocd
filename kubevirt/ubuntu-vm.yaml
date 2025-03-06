@@ -4,7 +4,7 @@ metadata:
   name: ubuntu-vm
   namespace: kubevirt
 spec:
-  running: false
+  running: true
   template:
     metadata:
       labels:
@@ -18,7 +18,7 @@ spec:
       volumes:
         - name: kubevirt-disk
           containerDisk:
-            image: kubevirt/cirros-container-disk-demo:latest
+            image: ubuntu:latest
       devices:
         disks:
           - name: kubevirt-disk
