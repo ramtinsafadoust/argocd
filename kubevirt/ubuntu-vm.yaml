@@ -22,6 +22,8 @@ spec:
           interfaces:
             - name: default
               masquerade: {}
+        machine:
+          type: q35  # نوع ماشین مجازی، برای مثال q35
         resources:
           requests:
             memory: 1Gi
