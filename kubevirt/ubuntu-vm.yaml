@@ -20,16 +20,16 @@ spec:
               disk:
                 bus: virtio
           interfaces:
-          - name: default
-            masquerade: {}
+            - name: default
+              masquerade: {}
         resources:
           requests:
             memory: 1Gi
           limits:
             memory: 2Gi
       networks:
-      - name: default
-        pod: {}
+        - name: default
+          pod: {}
       volumes:
         - name: containerdisk
           containerDisk:
@@ -40,3 +40,20 @@ spec:
               #cloud-config
               password: fedora
               chpasswd: { expire: False }
+  template:
+    spec:
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "kubernetes.io/hostname"
+                    operator: In
+                    values:
+                      - "slave-1"
+                      - "slave-2"
+                      - "slave-3"
