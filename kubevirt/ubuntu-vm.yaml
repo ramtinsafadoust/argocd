@@ -10,6 +10,8 @@ spec:
       labels:
         kubevirt.io/vm: ubuntu-vm
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: slave-1  # این قسمت نود خاص را مشخص می‌کند
       domain:
         devices:
           disks:
@@ -24,4 +26,3 @@ spec:
         - name: kubevirt-disk
           containerDisk:
             image: ubuntu:latest
-
