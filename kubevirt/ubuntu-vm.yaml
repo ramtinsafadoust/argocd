@@ -2,7 +2,7 @@ apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
   name: ubuntu-vm
-  namespace: default
+  namespace: kubevirt
 spec:
   running: false
   template:
