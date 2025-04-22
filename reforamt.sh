@@ -1,0 +1,2 @@
+#/bin/bash
+sg_format -v --format --size=512 /dev/sda && sg_format -v --format --size=512 /dev/sdb && sg_format -v --format --size=512 /dev/sdc && sg_format -v --format --size=512 /dev/sdd && sg_format -v --format --size=512 /dev/sde && sg_format -v --format --size=512 /dev/sdf && sg_format -v --format --size=512 /dev/sdg && sg_format -v --format --size=512 /dev/sdh
