@@ -11,7 +11,7 @@ spec:
     targetRevision: 2.9.2
     helm:
       values: |
-        hostname: rancher.example.com
+        hostname: rancher.ramtin-safadoust.ir
         ingress:
           enabled: false
         extraEnv:
