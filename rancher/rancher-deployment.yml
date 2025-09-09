@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://releases.rancher.com/server-charts/latest
+    chart: rancher
+    targetRevision: 2.9.2
+    helm:
+      values: |
+        hostname: rancher.example.com
+        ingress:
+          enabled: false
+        extraEnv:
+          - name: CATTLE_BOOTSTRAP_PASSWORD
+            value: "admin"
+          - name: CATTLE_INSECURE
+            value: "true"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cattle-system
+  syncPolicy:
+    automated: {}
