@@ -37,3 +37,5 @@ spec:
           value: "productcatalog:3550"
         - name: CURRENCY_SERVICE_ADDR
           value: "currencyservice:7000"
+        - name: RECOMMENDATION_SERVICE_ADDR
+          value: "recommendationservice:8080"
