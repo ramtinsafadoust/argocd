@@ -35,5 +35,5 @@ spec:
           value: "cartservice:7070"
         - name: PRODUCT_CATALOG_SERVICE_ADDR
           value: "productcatalog:3550"
-        -name: CURRENCY_SERVICE_ADDR
+        - name: CURRENCY_SERVICE_ADDR
           value: "currencyservice:7000"
