@@ -5,7 +5,8 @@ metadata:
   namespace: google
 spec:
   ports:
-  - port: 7000
+    - port: 7000
+      targetPort: 7000
   selector:
     app: currencyservice
 ---
@@ -15,7 +16,7 @@ metadata:
   name: currencyservice
   namespace: google
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: currencyservice
@@ -26,6 +27,9 @@ spec:
     spec:
       containers:
       - name: currencyservice
-        image: gcr.io/google-samples/microservices-demo/currencyservice:v0.8.0
+        image: gcr.io/google-samples/microservices-demo/currencyservice:v0.7.0
         ports:
         - containerPort: 7000
+        env:
+        - name: PORT
+          value: "7000"
